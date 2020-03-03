@@ -9,7 +9,7 @@ if %input%== y (goto pull)
 cls
 echo you are in %cd%
 git branch
-echo --------------------------------------
+echo -----------------------------------------
 echo  initialize repo - 1
 echo  initialize and pull repo - 2
 echo  commit changes  - 3 
@@ -22,7 +22,8 @@ echo  push changes  - 9
 echo  merge branches - 10
 echo  reset commit changes  - 11
 echo  change repo - 12
-echo --------------------------------------
+echo  update current branch from master - 13
+echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto init)
 if %set%== 2 (goto initpull)
@@ -36,8 +37,15 @@ if %set%== 9 (goto push)
 if %set%== 10 (goto merge)
 if %set%== 11 (goto reset)
 if %set%== 12 (goto swichRepo)
+if %set%== 13 (goto updateBranch)
 pause
 goto end
+
+:updateBranch
+git fetch origin master
+pause
+goto start
+
 
 :reset
 echo Resetting the changes from last commit

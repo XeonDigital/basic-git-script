@@ -9,3 +9,4 @@ this is my personal git script for basic use
  - Basic merging
  - Reseting changes
  - Switching repos
+ - Update the current branch to master
