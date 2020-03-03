@@ -1,5 +1,7 @@
 # Git Script 
 this is my personal git script for basic use
+*DISCLAIMER*
+This is not made for complicated peoblems like conflics and such
 ## Features
  - Repo initialization
  - Commit changes
