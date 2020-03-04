@@ -36,10 +36,15 @@ if %set%== 8 (goto switch)
 if %set%== 9 (goto push)
 if %set%== 10 (goto merge)
 if %set%== 11 (goto reset)
-if %set%== 12 (goto swichRepo)
+if %set%== 12 (goto switchRepo)
 if %set%== 13 (goto updateBranch)
 pause
 goto end
+
+:switchRepo
+set /p "folder=Which folder are you trying to open(Enter folder path or folder name [folder name must be in the current folder])?"
+cd %folder%
+:start
 
 :updateBranch
 git fetch origin master
