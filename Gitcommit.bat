@@ -44,7 +44,7 @@ goto end
 :switchRepo
 set /p "folder=Which folder are you trying to open(Enter folder path or folder name [folder name must be in the current folder])?"
 cd %folder%
-:start
+goto start
 
 :updateBranch
 git fetch origin master
