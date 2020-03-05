@@ -49,6 +49,7 @@ goto start
 :updateBranch
 git fetch origin master
 git rebase origin master
+goto push
 pause
 goto start
 
