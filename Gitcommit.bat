@@ -62,7 +62,7 @@ goto start
 :merge
 echo The highlighted green text is where you are right now
 git branch
-set /p merge"=Which branch do you want to merge from?"
+set /p merge="Which branch do you want to merge from?"
 git merge %merge%
 pause
 goto start
@@ -129,6 +129,7 @@ git init
 git remote add origin %origin%
 set /p branch="What is the branch you want to pull from?"
 git pull origin %branch%
+git checkout %branch%
 echo finished updating local repository
 pause 
 goto start
