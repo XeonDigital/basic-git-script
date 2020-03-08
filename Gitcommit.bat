@@ -10,19 +10,19 @@ cls
 echo you are in %cd%
 git branch
 echo -----------------------------------------
-echo  initialize repo - 1
-echo  initialize and pull repo - 2
-echo  commit changes  - 3 
-echo  force commit - 4
-echo  set global account - 5
-echo  pull branch - 6
-echo  create branch - 7
-echo  switch branch - 8
-echo  push changes  - 9 
-echo  merge branches - 10
-echo  reset commit changes  - 11
-echo  change repo - 12
-echo  update current branch from master - 13
+echo 1 - initialize repo
+echo 2 - initialize and pull repo 
+echo 3 - commit changes
+echo 4 - force commit
+echo 5 - set global account
+echo 6 - pull branch
+echo 7 - create branch
+echo 8 - switch branch
+echo 9 - push changes
+echo 10 - merge branches
+echo 11 - reset commit changes
+echo 12 - change repo
+echo 13 - update current branch from master
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto init)
@@ -49,7 +49,6 @@ goto start
 :updateBranch
 git fetch origin master
 git rebase origin master
-goto push
 pause
 goto start
 
