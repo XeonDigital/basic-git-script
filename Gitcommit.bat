@@ -19,7 +19,7 @@ echo 6 - pull branch
 echo 7 - create branch
 echo 8 - switch branch
 echo 9 - push changes
-echo 10 - merge branches
+echo 10 - merge local branches
 echo 11 - reset commit changes
 echo 12 - change repo
 echo 13 - update current branch from master
@@ -42,7 +42,7 @@ pause
 goto end
 
 :switchRepo
-set /p folder="Which folder are you trying to open(Enter folder path or folder name [folder name must be in the current folder])?"
+set /p folder="Which folder are you trying to open(Enter folder path)?"
 cd %folder%
 goto start
 
