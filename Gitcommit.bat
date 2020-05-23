@@ -3,7 +3,9 @@ echo Press enter to continue without opening
 set /p folder="Which folder are you trying to open(Enter folder path or folder name [folder name must be in the current folder])?"
 cd %folder%
 cls
+:firstpull
 set /p input="Do you want to pull now (type y or enter for no)?"
+if DEFINED input (cls) else (goto firstpull)
 if %input%== y (goto pull)
 :start
 cls
@@ -25,6 +27,7 @@ echo 12 - change repo
 echo 13 - update current branch from master
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
+if defined set (cls) else (goto start)
 if %set%== 1 (goto init)
 if %set%== 2 (goto initpull)
 if %set%== 3 (goto commit)
