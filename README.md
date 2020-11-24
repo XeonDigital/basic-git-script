@@ -14,3 +14,4 @@ This script also assumes that you have set your remote as origin
  - Reseting changes
  - Switching repos
  - Update the current branch to master
+ - Stashing
