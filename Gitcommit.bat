@@ -61,11 +61,8 @@ echo 2 - drop current stash
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
-if %set%== 1 (goto pull)
-if %set%== 2 (goto createB)
-if %set%== 3 (goto switch)
-if %set%== 4 (goto merge)
-if %set%== 5 (goto fetch)
+if %set%== 1 (goto stash)
+if %set%== 2 (goto dropStash)
 pause
 goto start
 
@@ -95,6 +92,19 @@ goto start
 
 
 rem methods (idk what to call them)
+
+:dropStash
+git stash pop
+echo Poped stash
+pause
+goto start
+
+:stash
+git stash
+echo Changes stashed
+pause
+goto start
+
 
 :fetch
 echo Fetching all the branches
