@@ -15,6 +15,7 @@ set /p input="Do you want to pull now (type y or enter for no)?"
 if DEFINED input (cls) else (goto firstpull)
 if %input%== y (goto pull)
 :start
+set %set%=""
 cls
 echo you are in %cd%
 echo Branches:
@@ -48,6 +49,7 @@ pause
 goto end
 
 :stashmenu
+set %set%=""
 echo STASH MENU
 echo Branches:
 echo (The star and the green text is the current branch)
@@ -67,6 +69,7 @@ pause
 goto start
 
 :branchmenu
+set %set%=""
 echo BRANCH MENU
 echo Branches:
 echo (The star and the green text is the current branch)
@@ -303,7 +306,7 @@ if %ERRORLEVEL% NEQ 0 (
 	goto branchmenu
 )
 pause
-goto branchmenu
+goto start
 
 :login
 cls 
