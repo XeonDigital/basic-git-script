@@ -15,7 +15,7 @@ set /p input="Do you want to pull now (type y or enter for no)?"
 if DEFINED input (cls) else (goto firstpull)
 if %input%== y (goto pull)
 :start
-set %set%=""
+set set=
 cls
 echo you are in %cd%
 echo Branches:
@@ -49,7 +49,6 @@ pause
 goto end
 
 :stashmenu
-set %set%=""
 echo STASH MENU
 echo Branches:
 echo (The star and the green text is the current branch)
@@ -65,6 +64,7 @@ echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto stash)
 if %set%== 2 (goto dropStash)
+set set=0
 pause
 goto start
 
@@ -90,6 +90,7 @@ if %set%== 2 (goto createB)
 if %set%== 3 (goto switch)
 if %set%== 4 (goto merge)
 if %set%== 5 (goto fetch)
+set set=0
 pause
 goto start
 
@@ -303,7 +304,7 @@ git pull origin %branch%
 if %ERRORLEVEL% NEQ 0 (
 	echo Something went wrong with pulling from %branch%
 	pause
-	goto branchmenu
+	goto start
 )
 pause
 goto start
