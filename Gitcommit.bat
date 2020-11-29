@@ -11,6 +11,7 @@ set /p folder="Which folder are you trying to open(Enter folder path or folder n
 cd %folder%
 cls
 :firstpull
+set input=
 set /p input="Do you want to pull now (type y or enter for no)?"
 if DEFINED input (cls) else (goto firstpull)
 if %input%== y (goto pull)
@@ -26,7 +27,7 @@ echo 1 - initialize repo
 echo 2 - initialize and pull repo
 echo 3 - commit changes
 echo 4 - force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
-echo 5 - set global account
+echo 5 - set account
 echo 6 - push changes
 echo 7 - reset commit changes
 echo 8 - change directory
@@ -64,12 +65,12 @@ echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto stash)
 if %set%== 2 (goto dropStash)
-set set=0
+set set=
 pause
 goto start
 
 :branchmenu
-set %set%=""
+set %set%=
 echo BRANCH MENU
 echo Branches:
 echo (The star and the green text is the current branch)
@@ -87,15 +88,28 @@ echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto pull)
 if %set%== 2 (goto createB)
-if %set%== 3 (goto switch)
-if %set%== 4 (goto merge)
-if %set%== 5 (goto fetch)
-set set=0
+if %set%== 3 (goto delBranch)
+if %set%== 4 (goto switch)
+if %set%== 5 (goto merge)
+if %set%== 6 (goto fetch)
 pause
 goto start
 
 
 rem methods (idk what to call them)
+
+:delBranch
+set branch=
+set /p "branch=Which local branch do you want to delete?"
+git branch -d %branch%
+if %ERRORLEVEL% NEQ 0 (
+	echo Something went wrong with deleting the branch
+	pause 
+	goto start
+)
+echo Branch deleted
+pause
+goto start
 
 :dropStash
 git stash pop
@@ -116,9 +130,9 @@ git fetch
 if %ERRORLEVEL% NEQ 0 (
 	echo Something went wrong with fetching
 	pause 
-	goto branchmenu
+	goto start
 )
-goto branchmenu
+goto start
 
 :switchRepo
 set /p folder="Which folder are you trying to open(Enter folder path)?"
@@ -146,10 +160,10 @@ git merge %merge%
 if %ERRORLEVEL% NEQ 0 (
 	echo Something went wrong with merging
 	pause 
-	goto branchmenu
+	goto start
 )
 pause
-goto branchmenu
+goto start
 
 :switch
 git branch
@@ -184,9 +198,9 @@ git push origin %branch%
 if %ERRORLEVEL% NEQ 0 (
 	echo Something went wrong with merging
 	pause
-	goto branchmenu
+	goto start
 )
-goto branchmenu
+goto start
 
 
 :commit
@@ -313,8 +327,8 @@ goto start
 cls 
 set /p username="What is your username?"
 set /p password="What is your password?"
-git config --global user.email "%username%"
-git config --global user.password "%password%"
+git config user.email "%username%"
+git config user.password "%password%"
 goto start
 
 :end
