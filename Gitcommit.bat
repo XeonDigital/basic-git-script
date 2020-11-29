@@ -23,16 +23,16 @@ echo Branches:
 echo (The star and the green text is the current branch)
 git branch
 echo -----------------------------------------
-echo 1 - initialize repo
-echo 2 - initialize and pull repo
-echo 3 - commit changes
-echo 4 - force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
-echo 5 - set account
-echo 6 - push changes
-echo 7 - reset commit changes
-echo 8 - change directory
-echo 9 - branch menu
-echo 10 - stash menu
+echo [1]initialize repo
+echo [2]initialize and pull repo
+echo [3]commit changes
+echo [4]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
+echo [5]set account
+echo [6]push changes
+echo [7]reset commit changes
+echo [8]change directory
+echo [8]branch menu
+echo [10]stash menu
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if defined set (cls) else (goto start)
@@ -58,8 +58,8 @@ echo Stash List:
 git stash list
 git stash show
 echo -----------------------------------------
-echo 1 - stash current commit
-echo 2 - drop current stash
+echo [1]stash current commit
+echo [2]drop current stash
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
@@ -77,12 +77,13 @@ echo (The star and the green text is the current branch)
 git branch
 
 echo -----------------------------------------
-echo 1 - pull branch
-echo 2 - create branch
-echo 3 - switch branch
-echo 4 - merge local branches
-echo 5 - fetch all branches
-echo 6 - get all branchs and track them
+echo [1]pull branch
+echo [2]create branch
+echo [3]delete branch
+echo [4]switch branch
+echo [5]merge local branches
+echo [6]fetch all branches
+echo [7]get all branchs and track them (not yet implemented)
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
