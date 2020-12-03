@@ -29,10 +29,11 @@ echo [3]commit changes
 echo [4]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
 echo [5]set account
 echo [6]push changes
-echo [7]reset commit changes
-echo [8]change directory
-echo [8]branch menu
-echo [10]stash menu
+echo [7]pull branch
+echo [8]reset commit changes
+echo [9]change directory
+echo [10]branch menu
+echo [11]stash menu
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if defined set (cls) else (goto start)
@@ -42,6 +43,7 @@ if %set%== 3 (goto commit)
 if %set%== 4 (goto force)
 if %set%== 5 (goto login)
 if %set%== 6 (goto push)
+if %set%== 1 (goto pull)
 if %set%== 7 (goto reset)
 if %set%== 8 (goto switchRepo)
 if %set%== 9 (goto branchmenu)
@@ -77,22 +79,20 @@ echo (The star and the green text is the current branch)
 git branch
 
 echo -----------------------------------------
-echo [1]pull branch
-echo [2]create branch
-echo [3]delete branch
-echo [4]switch branch
-echo [5]merge local branches
-echo [6]fetch all branches
-echo [7]get all branchs and track them (not yet implemented)
+echo [1]create branch
+echo [2]delete branch
+echo [3]switch branch
+echo [4]merge local branches
+echo [5]fetch all branches
+echo [6]get all branchs and track them (not yet implemented)
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
-if %set%== 1 (goto pull)
-if %set%== 2 (goto createB)
-if %set%== 3 (goto delBranch)
-if %set%== 4 (goto switch)
-if %set%== 5 (goto merge)
-if %set%== 6 (goto fetch)
+if %set%== 1 (goto createB)
+if %set%== 2 (goto delBranch)
+if %set%== 3 (goto switch)
+if %set%== 4 (goto merge)
+if %set%== 5 (goto fetch)
 pause
 goto start
 
