@@ -43,11 +43,11 @@ if %set%== 3 (goto commit)
 if %set%== 4 (goto force)
 if %set%== 5 (goto login)
 if %set%== 6 (goto push)
-if %set%== 1 (goto pull)
-if %set%== 7 (goto reset)
-if %set%== 8 (goto switchRepo)
-if %set%== 9 (goto branchmenu)
-if %set%== 10 (goto stashmenu)
+if %set%== 7 (goto pull)
+if %set%== 8 (goto reset)
+if %set%== 9 (goto switchRepo)
+if %set%== 10 (goto branchmenu)
+if %set%== 11 (goto stashmenu)
 pause
 goto end
 
