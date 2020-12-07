@@ -36,7 +36,7 @@ echo [10]branch menu
 echo [11]stash menu
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
-if defined set (cls) else (goto start)
+if defined set (cls) else (goto end)
 if %set%== 1 (goto init)
 if %set%== 2 (goto initpull)
 if %set%== 3 (goto commit)
