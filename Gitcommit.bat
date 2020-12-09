@@ -62,11 +62,13 @@ git stash show
 echo -----------------------------------------
 echo [1]stash current commit
 echo [2]drop current stash
+echo [3]delete all stashes
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto stash)
 if %set%== 2 (goto dropStash)
+if %set%== 3 (goto delStash)
 set set=
 pause
 goto start
@@ -98,6 +100,16 @@ goto start
 
 
 rem methods (idk what to call them)
+
+
+:delStash
+git stash clear
+if %ERRORLEVEL% NEQ 0 (
+	echo Something went wrong with deleting the stash
+	pause 
+	goto start
+)
+echo stash cleared
 
 :delBranch
 set branch=
