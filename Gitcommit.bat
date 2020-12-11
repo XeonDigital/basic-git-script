@@ -110,6 +110,8 @@ if %ERRORLEVEL% NEQ 0 (
 	goto start
 )
 echo stash cleared
+pause
+goto start
 
 :delBranch
 set branch=
