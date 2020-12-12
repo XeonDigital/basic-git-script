@@ -23,33 +23,40 @@ echo Branches:
 echo (The star and the green text is the current branch)
 git branch
 echo -----------------------------------------
-echo [1]initialize repo
-echo [2]initialize and pull repo
-echo [3]commit changes
-echo [4]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
-echo [5]set account
-echo [6]push changes
-echo [7]pull branch
-echo [8]reset commit changes
-echo [9]change directory
-echo [10]branch menu
-echo [11]stash menu
+echo [1]repo status
+echo [2]initialize repo
+echo [3]initialize and pull repo
+echo [4]commit changes
+echo [5]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
+echo [6]set account
+echo [7]push changes
+echo [8]pull branch
+echo [9]reset commit changes
+echo [10]change directory
+echo [11]branch menu
+echo [12]stash menu
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if defined set (cls) else (goto end)
-if %set%== 1 (goto init)
-if %set%== 2 (goto initpull)
-if %set%== 3 (goto commit)
-if %set%== 4 (goto force)
-if %set%== 5 (goto login)
-if %set%== 6 (goto push)
-if %set%== 7 (goto pull)
-if %set%== 8 (goto reset)
-if %set%== 9 (goto switchRepo)
-if %set%== 10 (goto branchmenu)
-if %set%== 11 (goto stashmenu)
+if %set%== 1 (goto gitStatus)
+if %set%== 2 (goto init)
+if %set%== 3 (goto initpull)
+if %set%== 4 (goto commit)
+if %set%== 5 (goto force)
+if %set%== 6 (goto login)
+if %set%== 7 (goto push)
+if %set%== 8 (goto pull)
+if %set%== 9 (goto reset)
+if %set%== 10 (goto switchRepo)
+if %set%== 11 (goto branchmenu)
+if %set%== 12 (goto stashmenu)
 pause
 goto end
+
+:gitStatus
+git status
+pause
+goto start
 
 :stashmenu
 echo STASH MENU
