@@ -1,19 +1,13 @@
 @ECHO OFF
-rem I need to make it so that you would beable to get all of the remote branches and track them
-rem I need to make the script do stashing
-rem I also need to make it so that there are mutiple menus
-rem I also gotta figure out how to error check
-rem I gotta allow it to show git status
-
 
 echo Press enter to continue without opening
 set /p folder="Which folder are you trying to open(Enter folder path or folder name [folder name must be in the current folder])?"
 cd %folder%
 cls
-:firstpull
+:startscript
 set input=
 set /p input="Do you want to pull now (type y or enter for no)?"
-if DEFINED input (cls) else (goto firstpull)
+if DEFINED input (cls) else (goto startscript)
 if %input%== y (goto pull)
 :start
 set set=
@@ -23,39 +17,88 @@ echo Branches:
 echo (The star and the green text is the current branch)
 git branch
 echo -----------------------------------------
-echo [1]repo status
-echo [2]initialize repo
-echo [3]initialize and pull repo
-echo [4]commit changes
-echo [5]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
-echo [6]set account
-echo [7]push changes
-echo [8]pull branch
-echo [9]reset commit changes
-echo [10]change directory
-echo [11]branch menu
-echo [12]stash menu
+echo [1]initialize repo
+echo [2]initialize and pull repo
+echo [3]commit changes
+echo [4]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
+echo [5]set account
+echo [6]push changes
+echo [7]pull branch
+echo [8]reset commit changes
+echo [9]change directory
+echo [10]set global account
+echo -----------------------
+echo [a]branch menu
+echo [b]stash menu
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if defined set (cls) else (goto end)
-if %set%== 1 (goto gitStatus)
-if %set%== 2 (goto init)
-if %set%== 3 (goto initpull)
-if %set%== 4 (goto commit)
-if %set%== 5 (goto force)
-if %set%== 6 (goto login)
-if %set%== 7 (goto push)
-if %set%== 8 (goto pull)
-if %set%== 9 (goto reset)
-if %set%== 10 (goto switchRepo)
-if %set%== 11 (goto branchmenu)
-if %set%== 12 (goto stashmenu)
+if %set%== 1 (goto init)
+if %set%== 2 (goto initpull)
+if %set%== 3 (goto commit)
+if %set%== 4 (goto force)
+if %set%== 5 (goto login)
+if %set%== 6 (goto push)
+if %set%== 7 (goto pull)
+if %set%== 8 (goto reset)
+if %set%== 9 (goto switchRepo)
+if %set%== 10 (goto global)
+if %set%== a (goto branchmenu)
+if %set%== b (goto stashmenu)
 pause
 goto end
 
-:gitStatus
-git status
+:global
+echo -----------------------------------------
+echo [1]credential helper(cached)
+echo [2]credential helper*
+echo [3]plain text*
+echo -----------------------------------------
+echo *WARNING: THIS WILL STORE YOUR CREDENTIALS IN PLAIN TEXT
+:globaloptions
+set /p options="how do you want to do store the credentials?"
+if NOT DEFINED options (goto globaloptions)
+echo asd
+if %options%== 1 (goto cached)
+if %options%== 2 (goto credentialhelper)
+if %options%== 3 (goto plaintext)
+
+:cached
+echo Setting the credential helper
+git config --global credential.helper cache
+if %ERRORLEVEL% NEQ 0 (
+echo Something went wrong with setting the credential helper to the cache
+pause 
+goto start
+)
+goto globalend
+
+:credentialhelper
+echo Setting the credential helper
+git config credential.helper store
+if %ERRORLEVEL% NEQ 0 (
+echo Something went wrong with setting the credential helper to the cache
+pause 
+goto start
+)
+goto globalend
+
+:plaintext
+echo Setting the credentials
+set /p username="Enter your email:"
+set /p password="Enter your password:"
+git config --global user.email "%username%"
+git config --global user.password "%password%"
+if %ERRORLEVEL% NEQ 0 (
+echo Something went wrong with setting the credentials
+pause 
+goto start
+)
+goto globalend
+
+:globalend
 pause
+set options=
 goto start
 
 :stashmenu
@@ -69,13 +112,11 @@ git stash show
 echo -----------------------------------------
 echo [1]stash current commit
 echo [2]drop current stash
-echo [3]delete all stashes
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto stash)
 if %set%== 2 (goto dropStash)
-if %set%== 3 (goto delStash)
 set set=
 pause
 goto start
@@ -107,18 +148,6 @@ goto start
 
 
 rem methods (idk what to call them)
-
-
-:delStash
-git stash clear
-if %ERRORLEVEL% NEQ 0 (
-	echo Something went wrong with deleting the stash
-	pause 
-	goto start
-)
-echo stash cleared
-pause
-goto start
 
 :delBranch
 set branch=
@@ -290,8 +319,13 @@ if %ERRORLEVEL% NEQ 0 (
 	pause
 	goto start
 )
-set /p comment="Enter the reason or "
-git commit -m "first commit"
+set /p comment="Enter the reason for the commit(Enter nothing for it to say first commit)"
+if defined comment(
+	git commit -m "%comment%"
+)
+else(
+	git commit -m "first commit"
+}
 if %ERRORLEVEL% NEQ 0 (
 	echo Something went wrong with commiting
 	pause
@@ -343,14 +377,6 @@ if %ERRORLEVEL% NEQ 0 (
 	goto start
 )
 pause
-goto start
-
-:login
-cls 
-set /p username="What is your username?"
-set /p password="What is your password?"
-git config user.email "%username%"
-git config user.password "%password%"
 goto start
 
 :end
