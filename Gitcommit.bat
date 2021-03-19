@@ -17,34 +17,36 @@ echo Branches:
 echo (The star and the green text is the current branch)
 git branch
 echo -----------------------------------------
-echo [1]initialize repo
-echo [2]initialize and pull repo
-echo [3]commit changes
-echo [4]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
-echo [5]set account
-echo [6]push changes
-echo [7]pull branch
-echo [8]reset commit changes
-echo [9]change directory
-echo [10]set global account
+echo [1]current status
+echo [2]initialize repo
+echo [3]initialize and pull repo
+echo [4]commit changes
+echo [5]force commit (ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING)
+echo [6]set account
+echo [7]push changes
+echo [8]pull branch
+echo [9]reset commit changes
+echo [10]change directory
 echo -----------------------
 echo [a]branch menu
 echo [b]stash menu
+echo [c]set global account menu
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if defined set (cls) else (goto end)
-if %set%== 1 (goto init)
-if %set%== 2 (goto initpull)
-if %set%== 3 (goto commit)
-if %set%== 4 (goto force)
-if %set%== 5 (goto login)
-if %set%== 6 (goto push)
-if %set%== 7 (goto pull)
-if %set%== 8 (goto reset)
-if %set%== 9 (goto switchRepo)
-if %set%== 10 (goto global)
+if %set%== 1 (goto status)
+if %set%== 2 (goto init)
+if %set%== 3 (goto initpull)
+if %set%== 4 (goto commit)
+if %set%== 5 (goto force)
+if %set%== 6 (goto login)
+if %set%== 7 (goto push)
+if %set%== 8 (goto pull)
+if %set%== 9 (goto reset)
+if %set%== 10 (goto switchRepo)
 if %set%== a (goto branchmenu)
 if %set%== b (goto stashmenu)
+if %set%== c (goto global)
 pause
 goto end
 
@@ -62,44 +64,6 @@ echo asd
 if %options%== 1 (goto cached)
 if %options%== 2 (goto credentialhelper)
 if %options%== 3 (goto plaintext)
-
-:cached
-echo Setting the credential helper
-git config --global credential.helper cache
-if %ERRORLEVEL% NEQ 0 (
-echo Something went wrong with setting the credential helper to the cache
-pause 
-goto start
-)
-goto globalend
-
-:credentialhelper
-echo Setting the credential helper
-git config credential.helper store
-if %ERRORLEVEL% NEQ 0 (
-echo Something went wrong with setting the credential helper to the cache
-pause 
-goto start
-)
-goto globalend
-
-:plaintext
-echo Setting the credentials
-set /p username="Enter your email:"
-set /p password="Enter your password:"
-git config --global user.email "%username%"
-git config --global user.password "%password%"
-if %ERRORLEVEL% NEQ 0 (
-echo Something went wrong with setting the credentials
-pause 
-goto start
-)
-goto globalend
-
-:globalend
-pause
-set options=
-goto start
 
 :stashmenu
 echo STASH MENU
@@ -132,18 +96,79 @@ echo -----------------------------------------
 echo [1]create branch
 echo [2]delete branch
 echo [3]switch branch
-echo [4]merge local branches
-echo [5]fetch all branches
-echo [6]get all branchs and track them (not yet implemented)
+echo [4]reset branch
+echo [5]hard reset branch
+echo [6]merge local branches
+echo [7]fetch all branches
+echo [8]get all branchs and track them (not yet implemented)
 echo *Enter nothing to exit
 echo -----------------------------------------
 set /p "set=What do you want to do(input the corresponding number)?"
 if %set%== 1 (goto createB)
 if %set%== 2 (goto delBranch)
 if %set%== 3 (goto switch)
-if %set%== 4 (goto merge)
-if %set%== 5 (goto fetch)
+if %set%== 4 (goto softreset)
+if %set%== 5 (goto hardreset)
+if %set%== 7 (goto merge)
+if %set%== 8 (goto fetch)
 pause
+goto start
+
+
+:status
+echo Status:
+git status
+pause
+goto start
+
+:softreset
+echo Soft resetting the branch
+git reset
+pause
+goto start
+
+:hardreset
+echo Hard resetting the branch
+git reset --hard
+pause 
+goto start
+
+:cached
+echo Setting the credential helper
+git config --global credential.helper cache
+if %ERRORLEVEL% NEQ 0 (
+echo Something went wrong with setting the credential helper to the cache
+pause 
+goto start
+)
+goto globalend
+
+:credentialhelper
+echo Setting the credential helper
+git config credential.helper wincred
+if %ERRORLEVEL% NEQ 0 (
+echo Something went wrong with setting the credential helper to the cache
+pause 
+goto start
+)
+goto globalend
+
+:plaintext
+echo Setting the credentials
+set /p username="Enter your email:"
+set /p password="Enter your password:"
+git config --global user.email "%username%"
+git config --global user.password "%password%"
+if %ERRORLEVEL% NEQ 0 (
+echo Something went wrong with setting the credentials
+pause 
+goto start
+)
+goto globalend
+
+:globalend
+pause
+set options=
 goto start
 
 
@@ -177,12 +202,13 @@ goto start
 
 :fetch
 echo Fetching all the branches
-git fetch
+git fetch --all
 if %ERRORLEVEL% NEQ 0 (
 	echo Something went wrong with fetching
 	pause 
 	goto start
 )
+pause
 goto start
 
 :switchRepo
