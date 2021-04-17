@@ -109,8 +109,8 @@ if %set%== 2 (goto delBranch)
 if %set%== 3 (goto switch)
 if %set%== 4 (goto softreset)
 if %set%== 5 (goto hardreset)
-if %set%== 7 (goto merge)
-if %set%== 8 (goto fetch)
+if %set%== 6 (goto merge)
+if %set%== 7 (goto fetch)
 pause
 goto start
 
