@@ -2,7 +2,7 @@
 this is my personal git script for basic use
 
 ### **DISCLAIMER**
-This is not made for complicated peoblems like conflics and such
+This is not made for complicated problems like conflics and such
 This script also assumes that you have set your remote as origin
 ## Features
  - Repo initialization
